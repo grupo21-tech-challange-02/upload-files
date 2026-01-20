@@ -1,0 +1,22 @@
+<div class="upload-container">
+  <h2>Upload de Arquivo</h2>
+
+  <input type="file" (change)="onFileSelected($event)" />
+  <button (click)="onUpload()" [disabled]="!selectedFile || uploading">
+    {{ uploading ? 'Enviando...' : 'Enviar' }}
+  </button>
+
+  <!-- Lista visual dos arquivos enviados -->
+  <div class="uploaded-list" *ngIf="uploadedFiles.length > 0">
+    <h3>Arquivos enviados:</h3>
+    <ul>
+      <li *ngFor="let file of uploadedFiles">
+        <ng-container *ngIf="file?.type?.startsWith('image/')">
+          <img [src]="file.url" alt="{{file.name}}" class="thumbnail" />
+        </ng-container>
+        <span class="file-name">{{ file.name }}</span>
+        <a [href]="file.url" target="_blank" class="view-link">Visualizar</a>
+      </li>
+    </ul>
+  </div>
+</div>
